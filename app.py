@@ -26,3 +26,18 @@ def btc_scraping():
     btc_price = result.text
 
     return btc_price
+
+
+def make_report():
+    btc_price = btc_scraping()
+    message = f"El precio actual del bitcoin es de ${btc_price}"
+
+    send_btc_price(message)
+
+
+if __name__ == '__main__':
+
+    schedule.every().day.at("10:00").do(make_report)
+
+    while True:
+        schedule.run_pending()
